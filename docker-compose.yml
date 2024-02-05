@@ -24,7 +24,7 @@ services:
       DB_USER: keycloak
       DB_PASSWORD: keycloakpassword
     ports:
-      - "8080:8080"
+      - "8181:8080"
     depends_on:
       - db_kc
     networks:
