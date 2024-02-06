@@ -11,8 +11,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - keycloak-net
-
+      - app-net
   keycloak:
     image: jboss/keycloak:latest
     environment:
@@ -28,8 +27,19 @@ services:
     depends_on:
       - db_kc
     networks:
-      - keycloak-net
+      - app-net
+  db_app:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: coruja_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1243
+    ports:
+      - "5443:5432"
+    networks:
+      - app-net
+      
 
 networks:
-  keycloak-net:
+  app-net:
     driver: bridge
