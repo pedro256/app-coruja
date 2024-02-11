@@ -5,10 +5,10 @@ import Link from "next/link"
 import { MdNavigateNext } from "react-icons/md"
 
 
-export default function Home() {
+export default function Auth() {
     return (
         <main className="flex w-full justify-center pt-24">
-            <div className="border h-min p-8">
+            <div className="border h-min p-8 bg-white">
                 <h4 className="text-xl">Autenticação</h4>
                 <div className="pt-4 pb-2">
                     <Label htmlFor="username">Usuário</Label>
