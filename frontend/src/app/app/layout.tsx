@@ -5,9 +5,10 @@ export default function Home({ children }: { children: ReactNode }) {
     return (
         <>
             <Navbar/>
-            {
-                children
-            }
+            <div className="relative top-24 md:top-20">
+            {children}
+            </div>
+            
         </>
     );
 }

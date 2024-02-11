@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { IRoute, NavRoutes } from "@/mock/navbar/routes";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
