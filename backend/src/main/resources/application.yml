@@ -1,6 +1,6 @@
 #schoolcall
 server:
-  port: 8000
+  port: 8100
 
 # Configuration for PostgreSQL Database
 spring:
@@ -22,3 +22,34 @@ spring:
     url: jdbc:postgresql://localhost:5443/coruja_db
     user: root
     password: 1243
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8181/auth/realms/crjapp
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+keycloak-initializer:
+  initializeOnStartup: false
+  masterRealm: master
+  application-realm: crjapp
+  client-id: admin-cli
+  client-secret: p3X3IIXNFSfYCSYEmxhxg7GEUUdZQo7a
+  username: admin
+  password: adminpassword
+  url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8181}/auth/
+
+
+#      client:
+#        registration:
+#          keycloak:
+#            client-id: login-app
+#            client-secret: YOUR_CLIENT_SECRET
+#            authorization-grant-type: authorization_code
+#            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+#            scope: openid
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8181/auth/realms/crjapp
+#            user-name-attribute: preferred_username
