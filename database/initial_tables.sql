@@ -5,7 +5,7 @@ CREATE TABLE users (
     email VARCHAR(200) NOT NULL,
     phone VARCHAR,
     active BOOL default true,
-    keyclock_id VARCHAR
+    keycloack_id VARCHAR
 );
 
 create table systems (
