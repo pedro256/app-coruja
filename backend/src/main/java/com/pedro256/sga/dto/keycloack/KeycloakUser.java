@@ -8,10 +8,16 @@ import lombok.Data;
 public class KeycloakUser {
 
     private String username;
+    private String firstName;
+    private String lastName;
+
 
     private String password;
 
     private String email;
 
-    private boolean isAdmin;
+    public KeycloakUser(){
+
+    }
+
 }

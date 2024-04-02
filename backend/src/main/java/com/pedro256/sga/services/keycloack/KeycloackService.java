@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pedro256.sga.dto.keycloack.KeycloakUser;
 import com.pedro256.sga.propeties.KeycloakInitializerProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RolesResource;
 import org.keycloak.admin.client.resource.UserResource;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -74,35 +76,14 @@ public class KeycloackService implements InitializingBean {
         }
     }
 
-//    private void initKeycloakUsers() {
-//
-//        List<KeycloakUser> users = null;
-//        try {
-//            Resource resource = new ClassPathResource(INIT_KEYCLOAK_USERS_PATH);
-//            users =
-//                    mapper.readValue(
-//                            resource.getFile(),
-//                            mapper.getTypeFactory().constructCollectionType(ArrayList.class, KeycloakUser.class));
-//        } catch (IOException e) {
-//            String errorMessage = String.format("Failed to read keycloak users : %s", e.getMessage());
-//            log.error(errorMessage);
-//            throw new RuntimeException(errorMessage, e);
-//        }
-//
-//        users.stream().forEach(u -> initKeycloakUser(u));
-//    }
-
-    public List<RoleRepresentation> initKeycloakUser(KeycloakUser user) {
-
-        System.out.println("REALM: "+REALM_ID);
-
-
+    public String InitUserKeycloack(KeycloakUser user) {
 
 
             UserRepresentation userRepresentation = new UserRepresentation();
             userRepresentation.setEmail(user.getEmail());
             userRepresentation.setUsername(user.getUsername());
-            userRepresentation.setUsername(user.getUsername());
+            userRepresentation.setFirstName(user.getFirstName());
+            userRepresentation.setLastName(user.getLastName());
             userRepresentation.setEnabled(true);
             userRepresentation.setEmailVerified(true);
             CredentialRepresentation userCredentialRepresentation = new CredentialRepresentation();
@@ -110,21 +91,14 @@ public class KeycloackService implements InitializingBean {
             userCredentialRepresentation.setTemporary(false);
             userCredentialRepresentation.setValue(user.getPassword());
             userRepresentation.setCredentials(Arrays.asList(userCredentialRepresentation));
-            keycloak.realm(REALM_ID).users().create(userRepresentation);
-           
+            Response response = keycloak.realm(REALM_ID).users().create(userRepresentation);
 
-            System.out.println("PASSOU");
-
-            if (user.isAdmin()) {
-                userRepresentation =
-                        keycloak.realm(REALM_ID).users().search(user.getUsername()).get(0);
-                UserResource userResource =
-                        keycloak.realm(REALM_ID).users().get(userRepresentation.getId());
-                List<RoleRepresentation> rolesToAdd =
-                        Arrays.asList(keycloak.realm(REALM_ID).roles().get("admin").toRepresentation());
-                userResource.roles().realmLevel().add(rolesToAdd);
+            if (response.getStatus() != 201) {
+                throw new RuntimeException("Failed to create user: HTTP error code: " + response.getStatus());
             }
-            return null;
+            String userId = CreatedResponseUtil.getCreatedId(response);
+
+            return userId;
 
 
     }
