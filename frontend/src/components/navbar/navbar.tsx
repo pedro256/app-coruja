@@ -21,7 +21,7 @@ function DropdownItemView({item}:{item:IRoute}) {
                                     sub.isDropdown ?(
                                         <DropdownItemView item={sub} />
                                     ):(
-                                        <Link className="flex gap-2 items-center text-xs md:text-md lg:text-lg" href={sub.url || "/"}>
+                                        <Link className="flex gap-2 items-center text-xs md:text-md lg:text-lg  hover:underline" href={sub.url || "/"}>
                                             {sub.icon}
                                             {sub.title}
                                         </Link>
@@ -62,7 +62,7 @@ export default function Navbar() {
                                                     route.isDropdown ?(
                                                         <DropdownItemView item={route} />
                                                     ):(
-                                                        <Link className="flex gap-2 items-center text-xs" href={route.url || "/"}>
+                                                        <Link className="flex gap-2 items-center text-xs hover:underline" href={route.url || "/"}>
                                                             {route.icon}
                                                             {route.title}
                                                         </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
                                     route.isDropdown ?(
                                         <DropdownItemView item={route} />
                                     ):(
-                                        <Link className="flex gap-2 items-center text-xs md:text-md lg:text-lg" href={route.url || "/"}>
+                                        <Link className="flex gap-2 items-center text-xs md:text-md lg:text-lg  hover:underline" href={route.url || "/"}>
                                             {route.icon}
                                             {route.title}
                                         </Link>
