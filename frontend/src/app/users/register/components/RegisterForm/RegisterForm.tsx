@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { RegistUser } from "@/services/users-service";
 import { RegistUserVS, TypeRegistUserVS } from "@/validation/users/regist-user-vs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -13,7 +14,21 @@ export default function RegisterForm() {
         resolver: zodResolver(RegistUserVS)
     })
 
-    function onSubmitedOk(dat:any){
+    async function  onSubmitedOk(dat:TypeRegistUserVS){
+        const resposta = await RegistUser({
+            CPF:dat.cpf,
+            email: dat.email,
+            firstName: dat.nome,
+            lastName: dat.sobrenome,
+            phone: dat.tel,
+            psswd: dat.senha
+        });
+        if(resposta.sucess){
+            alert("OK")
+        }else{
+            alert("FAIL")
+            console.error("error: ",resposta)
+        }
     }
     function onCancel(){
     }
