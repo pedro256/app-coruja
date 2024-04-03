@@ -16,6 +16,7 @@ public class ResponseApi<T> {
         this.sucess = false;
         this.messages = new ArrayList<>();
         this.stt = 200;
+        this.data = null;
     }
 
 }
