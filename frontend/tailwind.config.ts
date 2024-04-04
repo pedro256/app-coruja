@@ -36,6 +36,10 @@ const config = {
           DEFAULT: "#ef4444",
           foreground: "#fafafa",
         },
+        success:{
+          DEFAULT: "#6aa84f",
+          foreground: "#fff",
+        },
         muted: {
           DEFAULT: "#ebebec",
           foreground: "#6b6b6e",

@@ -5,10 +5,16 @@ import { Input } from "@/components/ui/input";
 import { RegistUser } from "@/services/users-service";
 import { RegistUserVS, TypeRegistUserVS } from "@/validation/users/regist-user-vs";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useToast } from "@/components/ui/use-toast"
+
 
 
 export default function RegisterForm() {
+
+    const route = useRouter()
+    const {toast} = useToast();
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<TypeRegistUserVS>({
         resolver: zodResolver(RegistUserVS)
@@ -24,13 +30,15 @@ export default function RegisterForm() {
             psswd: dat.senha
         });
         if(resposta.sucess){
-            alert("OK")
+            toast({description:"Usuário Cadastrado !",variant:"success"})
+            route.push("/auth")
         }else{
-            alert("FAIL")
+            toast({description:"Erro Cadastrado Usuário!",variant:"destructive"})
             console.error("error: ",resposta)
         }
     }
     function onCancel(){
+        toast({description:"Usuário Cadastrado !",variant:"success"})
     }
 
     return (

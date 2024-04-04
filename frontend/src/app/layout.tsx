@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { Ubuntu } from 'next/font/google'
 import './globals.css'
+import { Toaster } from '@/components/ui/toaster'
 
-const font = Ubuntu({ weight:'400',preload:false })
+const font = Ubuntu({ weight: '400', preload: false })
 
 export const metadata: Metadata = {
   title: 'SGA',
@@ -16,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={font.className}>{children}</body>
+      <body className={font.className}>{children}
+        <Toaster />
+      </body>
+
     </html>
   )
 }
