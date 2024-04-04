@@ -103,6 +103,8 @@ public class KeycloackService implements InitializingBean {
 
     }
 
+
+
     private void initKeycloak() {
 
         initKeycloakRealm();
