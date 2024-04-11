@@ -13,7 +13,7 @@ public class ResponseApi<T> {
     private ArrayList<String> messages;
 
     public ResponseApi(){
-        this.sucess = false;
+        this.sucess = true;
         this.messages = new ArrayList<>();
         this.stt = 200;
         this.data = null;
