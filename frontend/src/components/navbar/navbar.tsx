@@ -20,7 +20,10 @@ function DropdownItemView({item}:{item:IRoute}) {
                                 {
                                     sub.isDropdown ?(
                                         <DropdownItemView item={sub} />
-                                    ):(
+                                    ): sub.content ?(
+                                        <>{sub.content}</>
+                                    ):
+                                    (
                                         <Link className="flex gap-2 items-center text-xs md:text-md lg:text-lg  hover:underline" href={sub.url || "/"}>
                                             {sub.icon}
                                             {sub.title}

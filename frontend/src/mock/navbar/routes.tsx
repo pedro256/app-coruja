@@ -1,4 +1,5 @@
 
+import LogoutArea from "@/app/app/components/Logout";
 import { ReactElement, ReactNode } from "react";
 import { IconType } from "react-icons";
 import { FaUser } from "react-icons/fa";
@@ -15,6 +16,9 @@ export interface IRoute {
         subs:IRoute[],
         title?:string,
     }
+    content?:React.ReactNode
+    
+
 }
 
 const NavRoutes:IRoute[] = [
@@ -51,7 +55,7 @@ const NavRoutes:IRoute[] = [
             subs:[
                 {
                     title:"Sair",
-                    url:"/app/l1",
+                    content:(<LogoutArea/>),
 
                     rules:[]
                 },

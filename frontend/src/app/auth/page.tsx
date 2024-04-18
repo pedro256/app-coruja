@@ -23,13 +23,11 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function Auth() {
 
-    const {toast} = useToast();
     const route = useRouter();
-    const searchParams = useSearchParams();
-    const session = await getServerSession(authOptions)
 
+    const { data, status } = useSession()
 
-    if(session){
+    if(status=="authenticated"){
         redirect("/app")
     }
 
