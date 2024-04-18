@@ -15,8 +15,8 @@ function DropdownItemView({item}:{item:IRoute}) {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     {
-                        item.dropdownOps?.subs.map(sub => (
-                            <DropdownMenuItem>
+                        item.dropdownOps?.subs.map((sub,i) => (
+                            <DropdownMenuItem key={i}>
                                 {
                                     sub.isDropdown ?(
                                         <DropdownItemView item={sub} />
@@ -56,8 +56,8 @@ export default function Navbar() {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
                                     {
-                                        NavRoutes.map(route => (
-                                            <DropdownMenuItem>
+                                        NavRoutes.map((route,i) => (
+                                            <DropdownMenuItem key={i}>
                                                 {
                                                     route.isDropdown ?(
                                                         <DropdownItemView item={route} />
@@ -78,8 +78,8 @@ export default function Navbar() {
                 </div>
                 <ul className="hidden md:flex gap-2">
                     {
-                        NavRoutes.map(route => (
-                            <li className="mx-4">
+                        NavRoutes.map((route,i) => (
+                            <li className="mx-4" key={i}>
                                 {
                                     route.isDropdown ?(
                                         <DropdownItemView item={route} />

@@ -2,10 +2,10 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import NextAuth from "next-auth/next";
 import { Autheticate } from "@/services/auth-service";
-import { User } from "next-auth";
+import { AuthOptions, User } from "next-auth";
 
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
     // Configure one or more authentication providers
     providers: [
         CredentialsProvider({
@@ -18,12 +18,14 @@ export default NextAuth({
             },
             async authorize(credentials, req) {
                 const resp = await Autheticate({ username: credentials?.username ?? "", password: credentials?.password ?? "" });
+
                 if (resp.sucess) {
-                    return {
+                    const r = {
                         refreshToken: resp.data?.refresh_token,
                         accessToken: resp.data?.access_token,
                         accessTokenExpires: resp.data?.expires_in
                     } as User;
+                    return r;
                 } else { return null }
             },
 
@@ -31,7 +33,9 @@ export default NextAuth({
     ],
     callbacks: {
         async jwt({ token, user, account }) {
-            if (account?.type === 'credentials') {
+            
+            if (user) {
+
                 token.apiToken = user.accessToken;
                 token.apiRefreshToken = user.refreshToken;
                 token.expires = user.accessTokenExpires;
@@ -44,9 +48,18 @@ export default NextAuth({
             session.expires = token.expires;
 
             return session
-        }
+        },
+        async signIn({ user, account, profile, email, credentials }) {
+            return true
+        },
     },
     pages: {
-        signIn: "/",
-    }
-})
+        signIn: "/auth",
+        error: "/erro"
+    },
+    secret:'KKKK'
+}
+
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST }

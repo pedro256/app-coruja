@@ -9,7 +9,7 @@ import { cookies } from 'next/headers'
 
 
 export async function Autheticate(auth: AuthRequestDto):Promise<ApiResponse<AuthResponseDto>> {
-    console.log("auth:",auth)
+
     try {
         const api = GetInstanceApiRequest()
         const resp = await api.post<ApiResponse<AuthResponseDto>>("auth/login",auth);

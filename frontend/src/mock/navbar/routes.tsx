@@ -42,23 +42,19 @@ const NavRoutes:IRoute[] = [
         url:'/app/sistemas',
         rules:[],
     },{
-        title:'Link Test',
+        title:'Opções',
         icon:<GrSystem />,
         rules:[],
         isDropdown:true,
         dropdownOps:{
-            title:"Titulo Drodown",
+            title:"Opções",
             subs:[
                 {
-                    title:"LINK 1",
+                    title:"Sair",
                     url:"/app/l1",
+
                     rules:[]
                 },
-                {
-                    title:"LINK 2",
-                    url:"/app/l2",
-                    rules:[]
-                }
             ]
         }
     }
